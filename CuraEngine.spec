@@ -4,7 +4,7 @@
 #
 Name     : CuraEngine
 Version  : 4.0.0
-Release  : 2
+Release  : 3
 URL      : https://github.com/Ultimaker/CuraEngine/archive/4.0.0.tar.gz
 Source0  : https://github.com/Ultimaker/CuraEngine/archive/4.0.0.tar.gz
 Source1  : https://github.com/nothings/stb/archive/e6afb9cbae4064da8c3e69af3ff5c4629579c1d2.tar.gz
@@ -18,6 +18,7 @@ BuildRequires : buildreq-cmake
 BuildRequires : libArcus-dev
 BuildRequires : pkg-config
 BuildRequires : protobuf-dev
+Patch1: gcc9.patch
 
 %description
 =====================================================================
@@ -48,14 +49,15 @@ license components for the CuraEngine package.
 cd ..
 %setup -q -T -D -n CuraEngine-4.0.0 -b 1
 mkdir -p stb
-cp -r %{_topdir}/BUILD/stb-e6afb9cbae4064da8c3e69af3ff5c4629579c1d2/* %{_topdir}/BUILD/CuraEngine-4.0.0/stb
+cp -rn %{_topdir}/BUILD/stb-e6afb9cbae4064da8c3e69af3ff5c4629579c1d2/* %{_topdir}/BUILD/CuraEngine-4.0.0/stb
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1555372890
+export SOURCE_DATE_EPOCH=1556925596
 mkdir -p clr-build
 pushd clr-build
 export LDFLAGS="${LDFLAGS} -fno-lto"
@@ -64,7 +66,7 @@ make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1555372890
+export SOURCE_DATE_EPOCH=1556925596
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/CuraEngine
 cp LICENSE %{buildroot}/usr/share/package-licenses/CuraEngine/LICENSE

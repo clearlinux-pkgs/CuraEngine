@@ -4,7 +4,7 @@
 #
 Name     : CuraEngine
 Version  : 4.0.0
-Release  : 3
+Release  : 4
 URL      : https://github.com/Ultimaker/CuraEngine/archive/4.0.0.tar.gz
 Source0  : https://github.com/Ultimaker/CuraEngine/archive/4.0.0.tar.gz
 Source1  : https://github.com/nothings/stb/archive/e6afb9cbae4064da8c3e69af3ff5c4629579c1d2.tar.gz
@@ -49,24 +49,28 @@ license components for the CuraEngine package.
 cd ..
 %setup -q -T -D -n CuraEngine-4.0.0 -b 1
 mkdir -p stb
-cp -rn %{_topdir}/BUILD/stb-e6afb9cbae4064da8c3e69af3ff5c4629579c1d2/* %{_topdir}/BUILD/CuraEngine-4.0.0/stb
+cp -r %{_topdir}/BUILD/stb-e6afb9cbae4064da8c3e69af3ff5c4629579c1d2/* %{_topdir}/BUILD/CuraEngine-4.0.0/stb
 %patch1 -p1
 
 %build
+## build_prepend content
+sed -i -e s,"DEV","%{version}", src/settings/Settings.h
+## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1556925596
+export SOURCE_DATE_EPOCH=1557357496
 mkdir -p clr-build
 pushd clr-build
 export LDFLAGS="${LDFLAGS} -fno-lto"
-%cmake .. -DStb_INCLUDE_DIRS=../
+%cmake .. -DCURA_ENGINE_VERSION:STRING=%{version} \
+-DStb_INCLUDE_DIRS=../
 make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1556925596
+export SOURCE_DATE_EPOCH=1557357496
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/CuraEngine
 cp LICENSE %{buildroot}/usr/share/package-licenses/CuraEngine/LICENSE

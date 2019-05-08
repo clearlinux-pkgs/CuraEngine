@@ -1,0 +1,1 @@
+sed -i -e s,"DEV","%{version}", src/settings/Settings.h

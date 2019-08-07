@@ -1,0 +1,10 @@
+The following packages are part of a set that should be upgraded together,
+especially matching major.minor version, preferably in this order:
+
+libArcus
+libCharon
+libSavitar
+Uranium
+fdm_materials
+CuraEngine
+Cura

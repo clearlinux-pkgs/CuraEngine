@@ -4,7 +4,7 @@
 #
 Name     : CuraEngine
 Version  : 4.8
-Release  : 16
+Release  : 17
 URL      : https://github.com/Ultimaker/CuraEngine/archive/4.8/CuraEngine-4.8.tar.gz
 Source0  : https://github.com/Ultimaker/CuraEngine/archive/4.8/CuraEngine-4.8.tar.gz
 Source1  : https://github.com/nothings/stb/archive/e6afb9cbae4064da8c3e69af3ff5c4629579c1d2.tar.gz
@@ -59,7 +59,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1605030837
+export SOURCE_DATE_EPOCH=1616013370
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -73,7 +73,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1605030837
+export SOURCE_DATE_EPOCH=1616013370
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/CuraEngine
 cp %{_builddir}/CuraEngine-4.8/LICENSE %{buildroot}/usr/share/package-licenses/CuraEngine/78e50e186b04c8fe1defaa098f1c192181b3d837
